@@ -6,7 +6,7 @@
 ---
 
 ## 📌 Overview
-This repository contains buggy HTML/CSS/JS code. Your task is to debug the code to match the output shown in the **demo.mp4** video included in this repository. Do **not** rewrite the code entirely—fix the existing code to resolve issues.
+This repository contains buggy HTML/CSS/JS code. Your task is to debug the code to match the output shown below. Do **not** rewrite the code entirely—fix the existing code to resolve issues.
 [![Demo Video Preview](./demo.gif)](./demo.gif)  
 ---
 
