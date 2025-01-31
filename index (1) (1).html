@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simple T-Rex Runner</title>
+
+  <style>
+
+    .game-container {
+
+      position: fixed;
+      width: 600px;
+      height: 350px;
+      margin: 80px auto;
+      background: #000000;
+      border: 1px solid #6e6e6e;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    .ground {
+        position: relative;
+      bottom: 0;
+      width: 100%;
+      height: 10px;
+      background: #999;
+    }
+
+    .trex {
+
+      position: absolute; 
+      left: 50px;
+      bottom: 10px;
+      width: 44px;
+      height: 47px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQgAAAAvAgMAAABiRrxWAAAADFBMVEX///9TU1P39/f///+TS9URAAAAAXRSTlMAQObYZgAAAPpJREFUeF7d0jFKRkEMhdGLMM307itNLALyVmHvJuzTDMjdn72E95PGFEZSmeoU4YMMgxhskvQec8YSVFX1NhGcS5ywtbmC8khcZeKq+ZWJ4F8Sr2+ZCErjkJFEfcjAc/6/BMlfcz6xHdhRthYzIZhIHMcTVY1scUUiAphK8CMSPUbieTBhvD9Lj0vyV4wklEGzHpciKGOJoBp7XDcFs4kWxxM7Ey3iZ8JbzASAvMS7XLOJHTTvEkEZSeQl7DMuwVyCasqK5+XzQRYLUJlMbPXjFcn3m8eKBSjWZMJwvGIOvViAzCbUj1VEDoqFOEQGE3SyInJQLOQMJL4B7enP1UbLXJQAAAAASUVORK5CYII=');
+    }
+
+    .cactus {
+      position: absolute;
+      right: -50px; 
+      bottom: 10px;
+      width: 17px;
+      height: 35px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGYAAAAjCAMAAABRlI+PAAAADFBMVEX////////39/dTU1PhglcSAAAAAXRSTlMAQObYZgAAAPNJREFUeF7tlkEKwzAMBLXr//+5iQhU7gRRQkyhZI+DhwH74jhmO+oIJBVwURljuAXagG5QqkSgBLqg3JnxJ1Cb8SmQ3o6gpO85owGlOB4m2BNKJ11BSd01owGlOHkcIAuHkz6UNpPKgozPM54dADHjJuNhZiJxdQCQgZJeBczgCAAy3yhPJvcnmdC9mZwBIsQMFV5AkzHBNknFgcKM+oyDIFcfCAoy03m+jSMIcmoVZkKqSjr1fghyahRmoKRUHYLiSI1SMlCq5CDgX6BXmKkfn+oQ0KEyyrzoy8GbXJ9xrM/YjhUZgl9nnsyTCe9rgSRdV15CwRcIEu8GGQAAAABJRU5ErkJggg==');
+    }
+
+    .score {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #ffffff;
+      font-size: 18px;
+    }
+
+    .game-over {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #ffffff;
+      display: none; 
+    }
+    .game-over h1 {
+      margin: 0 0 10px;
+      font-size: 24px;
+    }
+    .game-over button {
+      border: 0;
+      padding: 8px 16px;
+      background: #555;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body style="background-color: #161616;">
+  <div class="game-container">
+    <div class="trex" id="trex"></div>
+    <div class="cactus" id="cactus"></div>
+    <div class="ground"></div>
+    <div class="score" id="score">0</div>
+    <div class="game-over" id="gameOver">
+      <h1>GAME OVER</h1>
+      <p>Press SPACE to restart</p>
+    </div>
+  </div>
+
+  <script>
+    const trex = document.getElementById('trex');
+    const cactus = document.getElementById('cactus');
+    const scoreDisplay = document.getElementById('score');
+    const gameOverPanel = document.getElementById('gameOver');
+
+    let isJumping = false;
+    let trexBottom = 0;     
+    let gravity = 0.5;     
+    let jumpSpeed = 10;    
+    let obstacleSpeed = 5; 
+    let score = 0;
+    let isGameOver = false;
+
+    function moveCactus() {
+      const cactusLeft = cactus.offsetLeft;
+
+      if (cactusLeft < -20) {
+        cactus.style.left = '0';
+
+        score++;
+        obstacleSpeed = 5 + Math.floor(score / 10);
+        scoreDisplay.textContent = score;
+        
+      } else {
+        cactus.style.left = (cactusLeft - obstacleSpeed) + 'px';
+      }
+    }
+
+    function jump() {
+      if (isJumping) return;
+      isJumping = true;
+      let upInterval = setInterval(() => {
+        if (trexBottom >= 80) {
+          clearInterval(upInterval);
+          let downInterval = setInterval(() => {
+            if (trexBottom <= 0) {
+              clearInterval(downInterval);
+              trexBottom = 0;
+              isJumping = false;
+            }
+            else{
+              trex.style.bottom = trexBottom + 'px';
+            }
+          }, 20);
+        }
+        trexBottom += jumpSpeed;
+        trex.style.bottom = trexBottom + 'px';
+      }, 20);
+    }
+
+    function checkCollision() {
+      const trexRect = trex.getBoundingClientRect();
+      const cactusRect = cactus.getBoundingClientRect();
+
+      if (
+        trexRect.x < cactusRect.x + cactusRect.width &&
+        trexRect.x + trexRect.width > cactusRect.x &&
+        trexRect.y < cactusRect.y + cactusRect.height &&
+        trexRect.y + trexRect.height > cactusRect.y
+      ) {
+        gameOver();
+      }
+    }
+
+    function gameOver() {
+      isGameOver = true;
+      gameOverPanel.style.display = 'block';
+    }
+
+    function resetGame() {
+      isGameOver = false;
+      score = 0;
+      scoreDisplay.textContent = score;
+      gameOverPanel.style.display = 'none';
+      trex.style.bottom = '0px';
+      trexBottom = 0;
+      cactus.style.left = '600px';
+    }
+
+    function gameLoop() {
+      if (!isGameOver) {
+        moveCactus();
+        checkCollision();
+      }
+      requestAnimationFrame(gameLoop);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        if (isGameOver) {
+          resetGame();
+        } else {
+          jump();
+        }
+      }
+    });
+
+    gameLoop();
+  </script>
+</body>
+</html>
