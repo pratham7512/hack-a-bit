@@ -8,6 +8,12 @@
 ## 📌 Overview
 This repository contains buggy HTML/CSS/JS code. Your task is to debug the code to match the output shown below. Do **not** rewrite the code entirely—fix the existing code to resolve issues.
 [![Demo Video Preview](./demo.gif)](./demo.gif)  
+
+## Optional tasks
+### 🛠 **Improvement 1: Progressive Obstacle Speed**
+####  Increase speed as the score increases:
+### 🛠 **Improvement 2: High Score Tracking**
+#### Add a high score counter store the highscore:
 ---
 
 ## 🚀 Instructions
@@ -48,8 +54,8 @@ git clone https://github.com/pratham7512/hack-a-bit.git
 2. **Code Quality**: Clean, efficient fixes without unnecessary changes.
 3. **Submission Time**: Earlier valid submissions win in case of ties.
 
----
+
 
 **Happy Debugging! May the best debugger win!** 🏆  
 *GDG-DIT Hack-a-Bit 2025 Organizers*
-``` 
+
