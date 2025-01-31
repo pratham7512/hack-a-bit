@@ -37,35 +37,16 @@ git clone https://github.com/pratham7512/hack-a-bit.git
 - **Deadline**: Submit before the round closes (check event timelines).
 - **Tiebreaker**: If scores are tied, earlier submissions get priority.
 - **Validation**: 
-  - Your code must render exactly as shown in `demo.mp4`.
+  - Your code must render exactly as shown above.
   - Do NOT use external CSS/JS files—embed everything in the HTML file.
   - Do NOT share your solution publicly; it may lead to disqualification.
 
 ---
 
 ## 🔍 Evaluation Criteria
-1. **Accuracy**: Matches the `demo.mp4` output.
+1. **Accuracy**: Matches the above output.
 2. **Code Quality**: Clean, efficient fixes without unnecessary changes.
 3. **Submission Time**: Earlier valid submissions win in case of ties.
-
----
-
-## 🧠 Additional Notes
-- **Test rigorously**: Check responsiveness, interactivity, and edge cases.
-- **Use browser tools**: Leverage DevTools (F12) to inspect elements and debug.
-- **Ask for help**: Reach out to organizers on Discord/Slack if stuck (but no code spoilers!).
-
----
-
-## ❓ FAQ
-**Q: Can I use frameworks like Bootstrap or React?**  
-A: No. Use vanilla HTML/CSS/JS only.
-
-**Q: What if I can’t access the demo video?**  
-A: Contact organizers immediately. The video is critical for understanding requirements.
-
-**Q: How do I confirm my submission was successful?**  
-A: You’ll receive a confirmation email. If not, reupload or contact support.
 
 ---
 
